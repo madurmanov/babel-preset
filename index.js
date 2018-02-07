@@ -4,6 +4,9 @@ const dev = env !== 'production'
 module.exports = function getPreset(context, opts) {
   const library = opts && opts.library
   const targets = opts && opts.targets
+  const alias = {
+    src: './src',
+  }
   const options = {
     targets: {
       browsers: [
@@ -43,6 +46,7 @@ module.exports = function getPreset(context, opts) {
       require.resolve('babel-plugin-transform-class-properties'),
     ]
       .concat(!library ? [
+        [require.resolve('babel-plugin-module-resolver'), { alias }],
         require.resolve('babel-plugin-universal-import'),
         targets && require.resolve('babel-plugin-syntax-dynamic-import'),
         !targets && require.resolve('babel-plugin-dynamic-import-node'),
